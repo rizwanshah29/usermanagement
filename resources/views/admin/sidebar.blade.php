@@ -22,6 +22,7 @@
                 </li>
             </ul>
         </div>
+        @hasrole('super-admin')
         <div class="card-body">
             <ul class="nav" role="tablist">
                 <li role="presentation">
@@ -31,6 +32,8 @@
                 </li>
             </ul>
         </div>
+            @endhasrole
+
         <div class="card-body">
             <ul class="nav" role="tablist">
                 <li role="presentation">
