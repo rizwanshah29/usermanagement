@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 
 // use App\Role;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 class RoleController extends Controller
 {
@@ -37,7 +38,8 @@ class RoleController extends Controller
      */
     public function create()
     {
-        return view('admin.role.create');
+        $permissions = Permission::get()->pluck('name','name');
+        return view('admin.role.create',compact('permissions'));
     }
 
     /**
@@ -49,11 +51,12 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        
-        $requestData = $request->all();
-        
-        Role::create($requestData);
 
+        $requestData = $request->except('permissions');
+        $permissions = $request->permissions;
+
+        $role = Role::create($requestData);
+        $role->givePermissionTo($permissions);
         return redirect('admin/roles')->with('flash_message', 'Role added!');
     }
 
@@ -79,10 +82,12 @@ class RoleController extends Controller
      * @return \Illuminate\View\View
      */
     public function edit($id)
+
     {
         $role = Role::findOrFail($id);
+        $permissions = Permission::get()->pluck('name','name');
 
-        return view('admin.role.edit', compact('role'));
+        return view('admin.role.edit', compact('role','permissions'));
     }
 
     /**
@@ -96,10 +101,13 @@ class RoleController extends Controller
     public function update(Request $request, $id)
     {
         
-        $requestData = $request->all();
-        
+        $requestData = $request->except('permissions');
+        $permissions = $request->permissions;
+
         $role = Role::findOrFail($id);
         $role->update($requestData);
+
+        $role->syncPermissions($permissions);
 
         return redirect('admin/roles')->with('flash_message', 'Role updated!');
     }

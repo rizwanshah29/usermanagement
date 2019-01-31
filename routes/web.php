@@ -51,3 +51,5 @@ Route::get('admin/permission/{id}','Admin\\PermissionController@show');
 Route::get('admin/permission/{id}/edit','Admin\\PermissionController@edit');
 Route::PATCH('admin/permission/{id}','Admin\\PermissionController@update');
 Route::Delete('admin/permission/{id}','Admin\\PermissionController@destroy');
+
+Route::resource('admin/permission', 'Admin\\PermissionController');

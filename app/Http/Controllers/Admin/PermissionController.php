@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use App\Permission;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Permission;
 
 class PermissionController extends Controller
 {
@@ -54,7 +54,7 @@ class PermissionController extends Controller
         
         Permission::create($requestData);
 
-        return redirect('admin/permissions')->with('flash_message', 'Permission added!');
+        return redirect('admin/permission')->with('flash_message', 'Permission added!');
     }
 
     /**
@@ -101,7 +101,7 @@ class PermissionController extends Controller
         $permission = Permission::findOrFail($id);
         $permission->update($requestData);
 
-        return redirect('admin/permissions')->with('flash_message', 'Permission updated!');
+        return redirect('admin/permission')->with('flash_message', 'Permission updated!');
     }
 
     /**
@@ -115,6 +115,6 @@ class PermissionController extends Controller
     {
         Permission::destroy($id);
 
-        return redirect('admin/permissions')->with('flash_message', 'Permission deleted!');
+        return redirect('admin/permission')->with('flash_message', 'Permission deleted!');
     }
 }

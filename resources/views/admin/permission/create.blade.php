@@ -21,7 +21,7 @@
                             </ul>
                         @endif
 
-                        {!! Form::open(['url' => '/admin/permission/store', 'class' => 'form-horizontal', 'files' => true]) !!}
+                        {!! Form::open(['url' => '/admin/permission', 'class' => 'form-horizontal', 'files' => true]) !!}
 
                         @include ('admin.permission.form', ['formMode' => 'create'])
 
