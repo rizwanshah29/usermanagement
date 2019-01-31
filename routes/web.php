@@ -21,6 +21,10 @@ Route::get('/validview/',function (){
 });
 
 Auth::routes();
+Route::group(['middleware' => ['role:super-admin']], function () {
+    //
+});
+
 
 
 // Users Routes
@@ -53,3 +57,4 @@ Route::PATCH('admin/permission/{id}','Admin\\PermissionController@update');
 Route::Delete('admin/permission/{id}','Admin\\PermissionController@destroy');
 
 Route::resource('admin/permission', 'Admin\\PermissionController');
+Route::resource('admin/users', 'Admin\\UsersController');

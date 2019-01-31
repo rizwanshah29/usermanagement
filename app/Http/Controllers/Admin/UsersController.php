@@ -1,11 +1,12 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
+
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+
 use App\User;
 use Illuminate\Http\Request;
-use UxWeb\SweetAlert\ConvertMessagesIntoSweetAlert;
 
 class UsersController extends Controller
 {
@@ -23,6 +24,7 @@ class UsersController extends Controller
             $users = User::where('name', 'LIKE', "%$keyword%")
                 ->orWhere('email', 'LIKE', "%$keyword%")
                 ->orWhere('password', 'LIKE', "%$keyword%")
+                ->orWhere('roles', 'LIKE', "%$keyword%")
                 ->latest()->paginate($perPage);
         } else {
             $users = User::latest()->paginate($perPage);
@@ -51,9 +53,13 @@ class UsersController extends Controller
     public function store(Request $request)
     {
         
-        $requestData = $request->all();
-        User::create($requestData);
-        return redirect('admin/users')->with('flash_message', 'User Add Successfully!');
+        $requestData = $request->except('roles');
+        $roles = $request->roles;
+
+        
+        $user = User::create($requestData);
+        $user->assignRole($roles);
+        return redirect('admin/users')->with('flash_message', 'User added!');
     }
 
     /**
@@ -96,9 +102,13 @@ class UsersController extends Controller
     {
         
         $requestData = $request->all();
+        
         $user = User::findOrFail($id);
         $user->update($requestData);
-        return redirect('admin/users')->with('flash_message', 'User Updated Sucessfully!');
+
+        $user->syncRoles($request->roles);
+
+        return redirect('admin/users')->with('flash_message', 'User updated!');
     }
 
     /**
@@ -112,6 +122,6 @@ class UsersController extends Controller
     {
         User::destroy($id);
 
-        return redirect('admin/users')->with('flash_message', 'User Deleted Sucessfully!');
+        return redirect('admin/users')->with('flash_message', 'User deleted!');
     }
 }

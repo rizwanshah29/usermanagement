@@ -21,44 +21,15 @@
                             </ul>
                         @endif
 
-                        <form  method="post" action="{{url('admin/users/store')}}" id="form">
-                        {{ csrf_field() }}
-                        <div class="form-group">
-                            <label for="name">Name</label>
-                            <input id="name" type="text" class="form-control" name="name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="Email">Email address</label>
-                            <input  type="email" class="form-control"  placeholder="Enter email" name="email" required>
-                            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-                        </div>
-                        <div class="form-group">
-                            <label for="Password">Password</label>
-                            <input id="password"  type="password" class="form-control"  placeholder="Password" name="password" required>
-                        </div>
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input">
-                            <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                        </form>
-                        
+                        {!! Form::open(['url' => '/admin/users', 'class' => 'form-horizontal', 'files' => true]) !!}
+
+                        @include ('admin.users.form', ['formMode' => 'create'])
+
+                        {!! Form::close() !!}
 
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.1.60/inputmask/jquery.inputmask.js"></script>
-    <script>
-        
-        $(document).ready(function(){
-           $("#form").validate({
-            });
-        });
-        // $('#name').inputmask("--- --- ---");
-        
-    
-    </script>
 @endsection
