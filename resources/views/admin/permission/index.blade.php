@@ -12,6 +12,11 @@
                         <a href="{{ url('/admin/permission/create') }}" class="btn btn-success btn-sm" title="Add New Permission">
                             <i class="fa fa-plus" aria-hidden="true"></i> Add New
                         </a>
+                        @if(Session::has('flash_message'))
+                            <script>
+                                swal('Success!', '{{ Session::get('flash_message') }}', 'success');
+                            </script>
+                        @endif
 
                         {!! Form::open(['method' => 'GET', 'url' => '/admin/permission', 'class' => 'form-inline my-2 my-lg-0 float-right', 'role' => 'search'])  !!}
                         <div class="input-group">
