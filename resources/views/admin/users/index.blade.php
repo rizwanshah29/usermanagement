@@ -52,10 +52,10 @@
                                                 'style' => 'display:inline'
                                             ]) !!}
                                                 {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i> Delete', array(
-                                                        'type' => 'submit',
+                                                        'type' => 'button',
                                                         'class' => 'btn btn-danger btn-sm',
                                                         'title' => 'Delete User',
-                                                        'onclick'=>'return confirm("Confirm delete?")'
+                                                        'onclick'=>'return confirmdel("'.$item->id.'")'
                                                 )) !!}
                                             {!! Form::close() !!}
                                         </td>
@@ -71,4 +71,47 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+        function confirmdel($id){
+            swal({
+                title: "Are you sure?",
+                text: "Once deleted, you will not be able to recover this imaginary file!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        swal("Poof! Your imaginary file has been deleted!", {
+                            icon: "success",
+                        });
+                    } else {
+                        swal("Your imaginary file is safe!");
+                    }
+                });
+
+
+            {{--swal({--}}
+                {{--title: "Are you sure!",--}}
+                {{--type: "error",--}}
+                {{--confirmButtonClass: "btn-danger",--}}
+                {{--confirmButtonText: "Yes!",--}}
+                {{--showCancelButton: true,--}}
+            {{--},--}}
+                {{--function() {--}}
+                    {{--$.ajax({--}}
+                        {{--type: "Delete",--}}
+                        {{--url: "{{url('/admin/users/store')}}",--}}
+                        {{--data: {id: $id},--}}
+                        {{--success: function (data) {--}}
+                            {{--//--}}
+                            {{--swal("deleted")--}}
+                        {{--}--}}
+                    {{--});--}}
+                {{--}--}}
+
+            {{--)--}}
+        }
+
+    </script>
 @endsection
