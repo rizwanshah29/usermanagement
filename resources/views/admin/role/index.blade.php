@@ -52,9 +52,10 @@
                                                 'style' => 'display:inline'
                                             ]) !!}
                                                 {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i> Delete', array(
-                                                        'type' => 'submit',
+                                                        'type' => 'button',
                                                         'class' => 'btn btn-danger btn-sm',
-                                                        'title' => 'Delete Role'
+                                                        'title' => 'Delete Role',
+                                                        'onclick'=>'return confirmdel("'.$item->id.'")',
                                                 )) !!}
                                             {!! Form::close() !!}
                                         </td>
@@ -70,4 +71,5 @@
             </div>
         </div>
     </div>
+    @include('admin.role.deletescript');
 @endsection

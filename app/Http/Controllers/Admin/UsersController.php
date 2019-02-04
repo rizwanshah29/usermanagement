@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use phpDocumentor\Reflection\DocBlock\Tags\Return_;
 
 class UsersController extends Controller
 {
@@ -118,10 +120,16 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        User::destroy($id);
 
-        return redirect('admin/users')->with('flash_message', 'User deleted!');
+        $id=$request->id;
+        User::destroy($id);
+        $response['status'] = 1;
+        $response['message'] = 'record_deleted_successfully';
+        return json_encode($response);
+
+
     }
+
 }

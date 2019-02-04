@@ -30,7 +30,7 @@ Route::group(['middleware' => ['role:super-admin']], function () {
     Route::get('admin/role/{id}','Admin\\RoleController@show');
     Route::get('admin/role/{id}/edit','Admin\\RoleController@edit');
     Route::PATCH('admin/role/{id}','Admin\\RoleController@update');
-    Route::Delete('admin/role/{id}','Admin\\RoleController@destroy');
+    Route::get('admin_role_delete','Admin\\RoleController@destroy');
 
 });
 // Users Routes
@@ -40,7 +40,7 @@ Route::get('admin/users', 'Admin\\UsersController@index');
 Route::get('admin/users/{id}','Admin\\UsersController@show');
 Route::get('admin/users/{id}/edit','Admin\\UsersController@edit');
 Route::PATCH('admin/users/{id}','Admin\\UsersController@update');
-Route::Delete('admin/users/{id}','Admin\\UsersController@destroy');
+Route::get('admin_delete','Admin\\UsersController@destroy');
 
 
 
@@ -53,7 +53,7 @@ Route::get('admin/permissions', 'Admin\\PermissionController@index');
 Route::get('admin/permission/{id}','Admin\\PermissionController@show');
 Route::get('admin/permission/{id}/edit','Admin\\PermissionController@edit');
 Route::PATCH('admin/permission/{id}','Admin\\PermissionController@update');
-Route::Delete('admin/permission/{id}','Admin\\PermissionController@destroy');
+Route::get('admin_permission_delete','Admin\\PermissionController@destroy');
 
 
 

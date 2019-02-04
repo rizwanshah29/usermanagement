@@ -52,10 +52,10 @@
                                                 'style' => 'display:inline'
                                             ]) !!}
                                                 {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i> Delete', array(
-                                                        'type' => 'submit',
+                                                        'type' => 'button',
                                                         'class' => 'btn btn-danger btn-sm',
                                                         'title' => 'Delete Permission',
-                                                        'onclick'=>'return confirm("Confirm delete?")'
+                                                        'onclick'=>'return confirmdel("'.$item->id.'")',
                                                 )) !!}
                                             {!! Form::close() !!}
                                         </td>
@@ -71,4 +71,5 @@
             </div>
         </div>
     </div>
+    @include('admin.permission.deletescript');
 @endsection

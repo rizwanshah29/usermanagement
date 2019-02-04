@@ -119,10 +119,13 @@ class RoleController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
+        $id = $request->id;
         Role::destroy($id);
 
-        return redirect('admin/roles')->with('flash_message', 'Role deleted!');
+        $response['status'] = 1;
+        $response['message'] = 'record_deleted_successfully';
+        return json_encode($response);
     }
 }

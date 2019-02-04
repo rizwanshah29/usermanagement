@@ -71,47 +71,6 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript">
-        function confirmdel($id){
-            swal({
-                title: "Are you sure?",
-                text: "Once deleted, you will not be able to recover this imaginary file!",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-            })
-                .then((willDelete) => {
-                    if (willDelete) {
-                        swal("Poof! Your imaginary file has been deleted!", {
-                            icon: "success",
-                        });
-                    } else {
-                        swal("Your imaginary file is safe!");
-                    }
-                });
+@include('admin.users.deletescript');
 
-
-            {{--swal({--}}
-                {{--title: "Are you sure!",--}}
-                {{--type: "error",--}}
-                {{--confirmButtonClass: "btn-danger",--}}
-                {{--confirmButtonText: "Yes!",--}}
-                {{--showCancelButton: true,--}}
-            {{--},--}}
-                {{--function() {--}}
-                    {{--$.ajax({--}}
-                        {{--type: "Delete",--}}
-                        {{--url: "{{url('/admin/users/store')}}",--}}
-                        {{--data: {id: $id},--}}
-                        {{--success: function (data) {--}}
-                            {{--//--}}
-                            {{--swal("deleted")--}}
-                        {{--}--}}
-                    {{--});--}}
-                {{--}--}}
-
-            {{--)--}}
-        }
-
-    </script>
 @endsection

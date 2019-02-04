@@ -111,10 +111,13 @@ class PermissionController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
+        $id = $request->id;
         Permission::destroy($id);
 
-        return redirect('admin/permissions')->with('flash_message', 'Permission deleted!');
+        $response['status'] = 1;
+        $response['message'] = 'record_deleted_successfully';
+        return json_encode($response);
     }
 }
