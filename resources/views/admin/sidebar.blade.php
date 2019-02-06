@@ -22,7 +22,7 @@
                 </li>
             </ul>
         </div>
-        @hasrole('super-admin')
+        {{--@hasrole('super-admin')--}}
         <div class="card-body">
             <ul class="nav" role="tablist">
                 <li role="presentation">
@@ -32,7 +32,7 @@
                 </li>
             </ul>
         </div>
-            @endhasrole
+            {{--@endhasrole--}}
 
         <div class="card-body">
             <ul class="nav" role="tablist">

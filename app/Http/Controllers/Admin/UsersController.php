@@ -9,6 +9,8 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use phpDocumentor\Reflection\DocBlock\Tags\Return_;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class UsersController extends Controller
 {
@@ -19,6 +21,8 @@ class UsersController extends Controller
      */
     public function index(Request $request)
     {
+//        return auth()->user()->getAllPermissions();
+//        exit;
         $keyword = $request->get('search');
         $perPage = 25;
 
@@ -61,6 +65,9 @@ class UsersController extends Controller
         
         $user = User::create($requestData);
         $user->assignRole($roles);
+
+        $permissions = Permission::all();
+        $user->syncPermissions($permissions);
         return redirect('admin/users')->with('flash_message', 'User added!');
     }
 
@@ -130,6 +137,12 @@ class UsersController extends Controller
         return json_encode($response);
 
 
+    }
+
+    public function loadpermissions($id){
+
+        $permissions = auth()->user()->getPermissionsViaRoles($id);
+        return $permissions;
     }
 
 }

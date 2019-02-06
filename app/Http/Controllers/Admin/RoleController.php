@@ -11,11 +11,18 @@ use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 class RoleController extends Controller
 {
+
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\View\View
      */
+
+    public function loadpermission(Request $request){
+
+    }
+
     public function index(Request $request)
     {
         $keyword = $request->get('search');
@@ -128,4 +135,5 @@ class RoleController extends Controller
         $response['message'] = 'record_deleted_successfully';
         return json_encode($response);
     }
+
 }

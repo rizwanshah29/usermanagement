@@ -42,7 +42,8 @@
                                 @foreach($role as $item)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $item->name }}</td>
+                                        <td><a href="{{ url('/admin/role/' . $item->id . '/edit') }}">{{ $item->name }}</a></td>
+                                        {{--<td>{{ $item->name }}</td>--}}
                                         <td>
                                             <a href="{{ url('/admin/role/' . $item->id) }}" title="View Role"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
                                             <a href="{{ url('/admin/role/' . $item->id . '/edit') }}" title="Edit Role"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>

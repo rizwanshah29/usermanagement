@@ -9,7 +9,8 @@
                 <div class="card">
                     <div class="card-header">Edit Role #{{ $role->id }}</div>
                     <div class="card-body">
-                        <a href="{{ url('/admin/role') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
+                        <a href="{{ url('/admin/roles') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
+                        <a href="{{ url('admin/loadpermissions/' . $role->id . '/role') }}" title="AssignPermissions"><button class="btn btn-primary btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i>Assign Permissions</button></a>
                         <br />
                         <br />
 

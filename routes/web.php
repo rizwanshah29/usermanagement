@@ -23,14 +23,7 @@ Route::get('/validview/',function (){
 Auth::routes();
 Route::group(['middleware' => ['role:super-admin']], function () {
     //
-    //Role Routes
-    Route::get('admin/role/create','Admin\\RoleController@create');
-    Route::post('admin/role/store','Admin\\RoleController@store');
-    Route::get('admin/roles', 'Admin\\RoleController@index');
-    Route::get('admin/role/{id}','Admin\\RoleController@show');
-    Route::get('admin/role/{id}/edit','Admin\\RoleController@edit');
-    Route::PATCH('admin/role/{id}','Admin\\RoleController@update');
-    Route::get('admin_role_delete','Admin\\RoleController@destroy');
+
 
 });
 // Users Routes
@@ -43,7 +36,14 @@ Route::PATCH('admin/users/{id}','Admin\\UsersController@update');
 Route::get('admin_delete','Admin\\UsersController@destroy');
 
 
-
+//Role Routes
+Route::get('admin/role/create','Admin\\RoleController@create');
+Route::post('admin/role/store','Admin\\RoleController@store');
+Route::get('admin/roles', 'Admin\\RoleController@index');
+Route::get('admin/role/{id}','Admin\\RoleController@show');
+Route::get('admin/role/{id}/edit','Admin\\RoleController@edit');
+Route::PATCH('admin/role/{id}','Admin\\RoleController@update');
+Route::get('admin_role_delete','Admin\\RoleController@destroy');
 
 
 //Permission Routes
@@ -54,6 +54,7 @@ Route::get('admin/permission/{id}','Admin\\PermissionController@show');
 Route::get('admin/permission/{id}/edit','Admin\\PermissionController@edit');
 Route::PATCH('admin/permission/{id}','Admin\\PermissionController@update');
 Route::get('admin_permission_delete','Admin\\PermissionController@destroy');
+Route::get('admin/loadpermissions/{id}/role','Admin\\UsersController@loadpermissions');
 
 
 
