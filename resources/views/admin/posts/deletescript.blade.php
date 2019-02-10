@@ -13,7 +13,7 @@
                 if (willDelete) {
 
                     $.ajax({
-                        url:'/admin_role_delete/',
+                        url:'/admin_post_delete/',
 
                         type: 'GET',
 

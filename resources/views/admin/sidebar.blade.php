@@ -16,13 +16,22 @@
         <div class="card-body">
             <ul class="nav" role="tablist">
                 <li role="presentation">
+                    <a href="{{ url('/admin/posts') }}">
+                        Posts
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="card-body">
+            <ul class="nav" role="tablist">
+                <li role="presentation">
                     <a href="{{ url('/admin/users') }}">
                         Users
                     </a>
                 </li>
             </ul>
         </div>
-        {{--@hasrole('super-admin')--}}
+        @role('admin')
         <div class="card-body">
             <ul class="nav" role="tablist">
                 <li role="presentation">
@@ -32,7 +41,7 @@
                 </li>
             </ul>
         </div>
-            {{--@endhasrole--}}
+            @endrole
 
         <div class="card-body">
             <ul class="nav" role="tablist">

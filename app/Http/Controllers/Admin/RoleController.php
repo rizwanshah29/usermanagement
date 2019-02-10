@@ -128,6 +128,7 @@ class RoleController extends Controller
      */
     public function destroy(Request $request)
     {
+
         $id = $request->id;
         Role::destroy($id);
 
@@ -135,5 +136,6 @@ class RoleController extends Controller
         $response['message'] = 'record_deleted_successfully';
         return json_encode($response);
     }
+
 
 }

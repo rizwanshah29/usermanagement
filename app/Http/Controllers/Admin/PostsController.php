@@ -5,15 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use App\User;
+use App\Post;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use phpDocumentor\Reflection\DocBlock\Tags\Return_;
 use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\Traits\HasRoles;
 
-class UsersController extends Controller
+class PostsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -26,16 +22,15 @@ class UsersController extends Controller
         $perPage = 25;
 
         if (!empty($keyword)) {
-            $users = User::where('name', 'LIKE', "%$keyword%")
-                ->orWhere('email', 'LIKE', "%$keyword%")
-                ->orWhere('password', 'LIKE', "%$keyword%")
-                ->orWhere('roles', 'LIKE', "%$keyword%")
+            $posts = Post::where('title', 'LIKE', "%$keyword%")
+                ->orWhere('content', 'LIKE', "%$keyword%")
+                ->orWhere('category', 'LIKE', "%$keyword%")
                 ->latest()->paginate($perPage);
         } else {
-            $users = User::latest()->paginate($perPage);
+            $posts = Post::latest()->paginate($perPage);
         }
 
-        return view('admin.users.index', compact('users'));
+        return view('admin.posts.index', compact('posts'));
     }
 
     /**
@@ -45,7 +40,7 @@ class UsersController extends Controller
      */
     public function create()
     {
-        return view('admin.users.create');
+        return view('admin.posts.create');
     }
 
     /**
@@ -58,16 +53,11 @@ class UsersController extends Controller
     public function store(Request $request)
     {
         
-        $requestData = $request->except('roles');
-        $roles = $request->roles;
-
+        $requestData = $request->all();
         
-        $user = User::create($requestData);
-        $user->assignRole($roles);
+        Post::create($requestData);
 
-        $permissions = Permission::all();
-        $user->syncPermissions($permissions);
-        return redirect('admin/users')->with('flash_message', 'User added!');
+        return redirect('admin/posts')->with('flash_message', 'Post added!');
     }
 
     /**
@@ -79,9 +69,9 @@ class UsersController extends Controller
      */
     public function show($id)
     {
-        $user = User::findOrFail($id);
+        $post = Post::findOrFail($id);
 
-        return view('admin.users.show', compact('user'));
+        return view('admin.posts.show', compact('post'));
     }
 
     /**
@@ -93,9 +83,9 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        $user = User::findOrFail($id);
+        $post = Post::findOrFail($id);
 
-        return view('admin.users.edit', compact('user'));
+        return view('admin.posts.edit', compact('post'));
     }
 
     /**
@@ -111,12 +101,10 @@ class UsersController extends Controller
         
         $requestData = $request->all();
         
-        $user = User::findOrFail($id);
-        $user->update($requestData);
+        $post = Post::findOrFail($id);
+        $post->update($requestData);
 
-        $user->syncRoles($request->roles);
-
-        return redirect('admin/users')->with('flash_message', 'User updated!');
+        return redirect('admin/posts')->with('flash_message', 'Post updated!');
     }
 
     /**
@@ -128,20 +116,21 @@ class UsersController extends Controller
      */
     public function destroy(Request $request)
     {
+        //Check for user has permission to delete post
 
-        $id=$request->id;
-        User::destroy($id);
-        $response['status'] = 1;
-        $response['message'] = 'record_deleted_successfully';
-        return json_encode($response);
+
+        if (auth()->user()->can('delete-post')){
+            $id = $request->id;
+            Post::destroy($id);
+
+            $response['status'] = 1;
+            $response['message'] = 'record_deleted_successfully';
+            return json_encode($response);
+        }
+        else{
+            return redirect('error/');
+        }
 
 
     }
-
-    public function loadpermissions($id){
-
-        $permissions = auth()->user()->getPermissionsViaRoles($id);
-        return $permissions;
-    }
-
 }
